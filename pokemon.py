@@ -6,10 +6,10 @@ wild_pokemon = [
        {"Name":"Charmander","Type":"Fire","Level":1,"Health":random.randint(20,30),"Attack":["Fire swipe",random.randrange(3,6),"Incendiary",random.randrange(20,25)]},
        {"Name":"Bulbasoar","Type":"Grass","Level":1,"Health":random.randint(30,45),"Attack":["Branch fall",random.randrange(2,5),"Tree Trunk",random.randrange(30,35)]},
        {"Name":"Squirtle","Type":"Water","Level":1,"Health":random.randint(25,35),"Attack":["Splash",random.randrange(4,7),"Incendiary",random.randrange(15,20)]},
-       {"Name":"Sylveon","Type":"Fairy","Level":1,"Health":random.randint(15,35)},"Attack":["Daze",random.randrange(3,4),"Sleepyhead",random.randrange(1,50)]},
-       {"Name":"Gengar","Type":"Ghost","Level":1,"Health":random.randint(50,60)},
-       {"Name":"Lucario","Type":"Fighting","Level":1,"Health":random.randint(40,50)},
-       {"Name":"Rhydon","Type":"Rock","Level":1,"Health":random.randint(60,70)}
+       {"Name":"Sylveon","Type":"Fairy","Level":1,"Health":random.randint(15,35),"Attack":["Daze",random.randrange(3,4),"Sleepyhead",random.randrange(1,50)]},
+       {"Name":"Gengar","Type":"Ghost","Level":1,"Health":random.randint(50,60),"Attack":["Spook",random.randrange(4,8),"Haunted House",random.randrange(20,40)]},
+       {"Name":"Lucario","Type":"Fighting","Level":1,"Health":random.randint(40,50),"Attack":["Shock",random.randrange(1,12),"Electric Field",random.randrange(25,30)]},
+       {"Name":"Rhydon","Type":"Rock","Level":1,"Health":random.randint(60,70),"Attack":["Earthquake",random.randrange(4,7),"Building Breaker",random.randrange(10,30)]}
 ]
 
 player_pokemon = [{"Name":"Ditto","Type":"Normal","Level":1,"Health":random.randint(5,10),"Attack":["Nothing",random.randrange(1,2),"More Nothing",random.randrange(10,20)]}]
@@ -62,8 +62,8 @@ def battle():
               enemy_attack_randomiser = random.randrange(0,3,2)
               print("Random number for attack", enemy_attack_randomiser)
               print(enemy_pokemon["Name"], "attacks with", enemy_pokemon["Attack"][enemy_attack_randomiser], "for",enemy_attack_randomiser["Attack"][enemy_attack_randomiser + 1], "damage")
-              player_pokemon_hp = player_pokemon_hp - enemy_pokemon["Attack"][enemy_attack_randomiser + ]
+              player_pokemon_hp = player_pokemon_hp - enemy_pokemon["Attack"][enemy_attack_randomiser + 1]
               print(player_pokemon["Name"], "has", player_pokemon_hp, "health ")
-           overworld_timer()
+       overworld_timer()
 
 battle()
