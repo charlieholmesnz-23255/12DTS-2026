@@ -14,30 +14,14 @@ NUMBERS = [1,2,3,4,5,6,7,8,9,10,"J","Q","K","A"]
 deck = [[],[]]
 dealer_hand = [""]
 player_hand = [[],[]]
-player_amount_input = ("")
-possible_player_amounts = ("1","2","3","4","5")
-player_amount = ()
 
 #functions
-def number_of_players():
-    player_amount = ""
-    while not player_amount:
-        player_amount_input = input("How many players would you like at the table?\n1-5\n").strip()
-        if player_amount_input not in possible_player_amounts:
-            print("please enter a number\n1-5")
-            continue
-        else:
-            player_amount = player_amount_input
-    return player_amount
 
 def build_deck():
     for x in SUITS:
-        print("Adding:",x,"suit.")
         for y in NUMBERS:
             deck[0].append(x)
             deck[1].append(y)
-            print("Card:",y,"of",x,"added")
-        print("Done")
 
 def player_deal():
     card = random.randint(0,len(deck[0])-1)
@@ -45,13 +29,31 @@ def player_deal():
     player_hand[1].append(deck[1][card])
     deck[0].pop(card)
     deck[1].pop(card)
+    for i in range(0,len(player_hand[0])):
+        print(i+1,":",player_hand[1][i],"of",player_hand[0][i])
+
+def player_play_game():
+    ask_player = ""
+    while not ask_player:
+        ask_player = input("Do you want to hit or stand? ( H / S )\n").upper().strip()
+        if ask_player == "H":
+            player_deal()
+        elif ask_player == "S":
+            are_you_sure = input("Are you sure? ( Y / N )\n").upper().strip()
+            if are_you_sure == "Y":
+                continue
+            else:
+                return ask_player
+        else:
+            print("Please try again")
+
 
 #welcome_msg
-print("_________________________________")
+print("---------------------------------")
 print("_Welcome to tiles and turbulence_")
-print("_________________________________")
+print("---------------------------------")
 
 #main program
 build_deck()
 player_deal()
-print(player_hand)
+return_from_stand_fail = player_play_game()
