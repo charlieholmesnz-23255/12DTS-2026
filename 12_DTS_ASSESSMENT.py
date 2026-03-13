@@ -56,4 +56,3 @@ print("---------------------------------")
 #main program
 build_deck()
 player_deal()
-return_from_stand_fail = player_play_game()
