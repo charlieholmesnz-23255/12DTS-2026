@@ -18,15 +18,31 @@ player_total = 0
 
 #functions
 
-def check_hand():
-    global player_total
-    for i in player_hand[1]:
-        player_total += NUMBERS[i]
 def build_deck():
     for x in SUITS:
         for y in NUMBERS:
             deck[0].append(x)
             deck[1].append(y)
+
+def delete_deck():
+    global deck
+    deck = [[],[]]
+
+def check_hand():
+    global player_total
+    player_total = 0
+    for i in player_hand[1]:
+        player_total += NUMBERS[i]
+    if player_total > 21:
+        print("You got too many points,try again\n")
+        return "over"
+        delete_deck()
+    elif player_total == 21:
+        print("You got 21, congrats\n")
+        return "perfect"
+        delete_deck()
+    else:
+        return "good"
 
 def player_deal():
     tile = random.randint(0,len(deck[0])-1)
@@ -41,33 +57,36 @@ def player_deal():
 def player_play_game(return_from_stand):
     global ask_player
     ask_player = ""
+    player_bust = False
+    build_deck()
     while not ask_player:
-        player_bust()
+        if check_hand() == "good":
+            return False
+
         ask_player = input("Do you want to hit or stand? ( H / S )\n").upper().strip()
-        check_hand()
-        print(player_total)
+
         if ask_player == "H":
             player_deal()
             player_play_game(True)
+            check_hand()
+            print(player_total)
+
         elif ask_player == "S":
             are_you_sure = input("Are you sure? ( Y / N )\n").upper().strip()
+
             if are_you_sure == "Y":
                 continue
+
             elif are_you_sure == "N":
                 return False
+
             else:
                 print("Please try again")
                 return are_you_sure
+
         else:
             print("Please try again")
-        player_unsure = player_play_game(False)
-        if player_unsure != True:
-            player_play_game(True)
-
-def player_bust():
-    global ask_player
-    if player_total >= 21:
-        ask_player = False
+            player_unsure = player_play_game(False)
 
 #welcome_msg
 print("---------------------------------")
@@ -75,6 +94,4 @@ print("_Welcome to tiles and turbulence_")
 print("---------------------------------")
 
 #main program
-build_deck()
-player_deal()
 player_play_game(True)
