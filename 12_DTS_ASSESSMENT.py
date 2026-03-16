@@ -22,6 +22,7 @@ def check_hand():
     global player_total
     for i in player_hand[1]:
         player_total += NUMBERS[i]
+
 def build_deck():
     for x in SUITS:
         for y in NUMBERS:
@@ -45,9 +46,9 @@ def player_play_game(return_from_stand):
         player_bust()
         ask_player = input("Do you want to hit or stand? ( H / S )\n").upper().strip()
         check_hand()
-        print(player_total)
         if ask_player == "H":
             player_deal()
+            print(player_total)
             player_play_game(True)
         elif ask_player == "S":
             are_you_sure = input("Are you sure? ( Y / N )\n").upper().strip()
