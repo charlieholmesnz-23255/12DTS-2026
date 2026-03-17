@@ -5,6 +5,7 @@
 #libraries
 import random
 import time
+import os
 
 #constants
 SUITS = ["hearts","clubs","spades","diamonds"]
@@ -17,7 +18,6 @@ player_hand = [[],[]]
 player_total = 0
 
 #functions
-
 def build_deck():
     for x in SUITS:
         for y in NUMBERS:
@@ -29,18 +29,31 @@ def delete_deck():
     deck = [[],[]]
 
 def check_hand():
+    global player_hand
     global player_total
     player_total = 0
+
     for i in player_hand[1]:
         player_total += NUMBERS[i]
+
     if player_total > 21:
+        delete_deck()
+        build_deck()
+        os.system('cls' if os.name == 'nt' else 'clear')
         print("You got too many points,try again\n")
+        player_hand = [],[]
+        time.sleep(3)
         return "over"
+
+    if player_total == 21:
         delete_deck()
-    elif player_total == 21:
+        build_deck()
+        os.system('cls' if os.name == 'nt' else 'clear')
         print("You got 21, congrats\n")
+        player_hand = [],[]
+        time.sleep(3)
         return "perfect"
-        delete_deck()
+
     else:
         return "good"
 
@@ -50,18 +63,19 @@ def player_deal():
     player_hand[1].append(deck[1][tile])
     deck[0].pop(tile)
     deck[1].pop(tile)
+
     for i in range(0,len(player_hand[0])):
         print(i+1,":",player_hand[1][i],"of",player_hand[0][i])
 
 
 def player_play_game(return_from_stand):
-    global ask_player
     ask_player = ""
-    player_bust = False
-    build_deck()
+    check_hand()
+
+    if player_total > 21:
+        return False
+
     while not ask_player:
-        if check_hand() == "good":
-            return False
 
         ask_player = input("Do you want to hit or stand? ( H / S )\n").upper().strip()
 
@@ -69,7 +83,6 @@ def player_play_game(return_from_stand):
             player_deal()
             player_play_game(True)
             check_hand()
-            print(player_total)
 
         elif ask_player == "S":
             are_you_sure = input("Are you sure? ( Y / N )\n").upper().strip()
@@ -86,12 +99,18 @@ def player_play_game(return_from_stand):
 
         else:
             print("Please try again")
-            player_unsure = player_play_game(False)
+            return ask_player
+
+    if check_hand() == "perfect" or "over":
+        delete_deck()
+        build_deck()
+        player_play_game(True)
 
 #welcome_msg
 print("---------------------------------")
-print("_Welcome to tiles and turbulence_")
+print("-Welcome to tiles and turbulence-")
 print("---------------------------------")
 
 #main program
+build_deck()
 player_play_game(True)
