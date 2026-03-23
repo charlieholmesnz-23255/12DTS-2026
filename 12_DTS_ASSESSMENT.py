@@ -5,6 +5,8 @@
 #libraries
 import random
 import time
+import sys
+
 
 #constants
 SUITS = ["kiwis","pies","paua","gumboots"]
@@ -98,26 +100,66 @@ def dealer_ai():
         deck[0].pop(tile)
         deck[1].pop(tile)
         dealer_check_hand()
-        print("Dealer hand:")
-        print(dealer_hand)
-        if dealer_total > player_total:
-            print("Congrats! you got more than the dealer!\n You are onto the next section\n")
-            player_play_game(False)
-            return False
-        if dealer_total == player_total:
-            print("Wow! you got the same as the dealer!\n Unfortunately, you dont win or lose! play again.\n")
-            player_play_game(True)
-            return True
-        else:
-            print("Ah! Unfortunate, you got more than the dealer!\n play again\n")
-            player_play_game(True)
-            return True
+    print("Dealer hand:")
+    for i in range(0,len(dealer_hand[0])):
+        print(i+1,":",dealer_hand[1][i],"of",dealer_hand[0][i])
+    if dealer_total > 21:
+        print("Nice! The dealer went over 21 and you won!\n")
+        player_play_game(True)
+    elif dealer_total > player_total:
+        print("Congrats! you got more than the dealer!\n You are onto the next section\n")
+        player_play_game(False)
+        return False
+    if dealer_total == player_total:
+        print("Wow! you got the same as the dealer!\n Unfortunately, you dont win or lose! play again.\n")
+        player_play_game(True)
+        return True
+    else:
+        print("Ah! Unfortunate, the dealer got more than you!\n play again\n")
+        player_play_game(True)
+        return True
 
+def story_text(text, delay=0.1):
+    for character in text:
+        sys.stdout.write(character)
+        sys.stdout.flush()
+        time.sleep(delay)
+    print()
+
+def main_story():
+    player_pathway_loop = 0
+    input(story_text("For every piece of dialogue in this story, press enter to continue\n"))
+    input(story_text("It was a cold and stormy night, you wake up in a forest in a plane crash.\n"))
+    input(story_text("You find yourself with no food, water, or sleeping device.\n"))
+    input(story_text("Eventually you stumble through the woods and see a sign...\n"))
+    input("'The Brooklyn windmill!'\n")
+    input(story_text("*but how do i get there...* you ask yourself\n"))
+    input(story_text("A small kiwi exits its nest and waddles towards you.\n"))
+    input(story_text("As it creeps closer to examine you, you stay as still as possible to not frighten the creature\n"))
+    input(story_text("'HELLO THERE MATE' The somehow talkitive kiwi exclaims\n"))
+    input(story_text("'Well how'd you get round here, this is Greenstone Grove, no one been round here since the mythical ages'\n"))
+    while player_pathway_loop == 0:
+        player_pathway = input("CHOOSE YOUR NEXT WORDS:\n'What's the mythical ages?'\nor\n'You can talk?'\n( 1 or 2 )\n")
+        if player_pathway == 1:
+            input(story_text("'Well back in about 2020, there was a thing called lockdown.' \nThe talkitive kiwi says.\n"))
+            input(story_text("'While everyone was stuck in there houses us kiwis started to flourish and made our own land out the back of brooklyn called Greenstone Grove\n"))
+            input(story_text("'Well that's nice but how do i get back to the CBD? I'm kind of stuck out here without food or water.' You say \n"))
+            input(story_text("'The food issue is not a problem out here, we have tiles and tiles of food and supplies, you might just have to play for it.'\nThe kiwi says in a less welcoming tone.\n"))
+            player_pathway_loop = 1
+        if player_pathway == 2:
+            input(story_text("'Back in the mythical times of 2020 as everyone was in their houses we made this little place out here called Greenstone Grove,\n Where we evolved past humans, but somehow kept the classic kiwi shape.'\n"))
+
+    player_play_game(True)
 
 #welcome_msg
 print("---------------------------------")
 print("_Welcome to tiles and turbulence_")
 print("---------------------------------")
+time.sleep(3)
+print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+input("To play you must draw tiles one by one. But make sure you dont go over 21!\npress enter to continue")
+input("To win you must get less than 22 points and beat out the opponent\npress enter to continue")
+input("KEY:\nK , Q , J  = 10\nA = 1")
 
 #main program
 build_deck()
