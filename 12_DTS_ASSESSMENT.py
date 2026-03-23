@@ -26,15 +26,13 @@ def check_hand():
         print("Unfortunate, you got over 21! try again\n")
         delete_deck()
         build_deck()
-        # time.sleep(3)
+        time.sleep(3)
         return ask_player
 
     if player_total == 21:
         print("Nice job! You got 21!\n")
-        delete_deck()
-        build_deck()
-        # time.sleep(3)
-        return ask_player
+        time.sleep(3)
+        dealer_ai()
 
 def build_deck():
     for x in SUITS:
@@ -93,16 +91,28 @@ def dealer_check_hand():
 def dealer_ai():
     global dealer_total
     dealer_total = 0
-    while dealer_total < 21:
-        if deck[0] == None:
-            print("EMPTY DECK!!!!!!!!!!!!!!!!")
+    while dealer_total < player_total:
+        tile = random.randint(0,len(deck[0])-1)
+        dealer_hand[0].append(deck[0][tile])
+        dealer_hand[1].append(deck[1][tile])
+        deck[0].pop(tile)
+        deck[1].pop(tile)
+        dealer_check_hand()
+        print("Dealer hand:")
+        print(dealer_hand)
+        if dealer_total > player_total:
+            print("Congrats! you got more than the dealer!\n You are onto the next section\n")
+            player_play_game(False)
+            return False
+        if dealer_total == player_total:
+            print("Wow! you got the same as the dealer!\n Unfortunately, you dont win or lose! play again.\n")
+            player_play_game(True)
+            return True
         else:
-            print(deck)
-            tile = random.randint(0,len(deck[0])-1)
-            player_hand[0].append(deck[0][tile])
-            player_hand[1].append(deck[1][tile])
-            deck[0].pop(tile)
-            deck[1].pop(tile)
+            print("Ah! Unfortunate, you got more than the dealer!\n play again\n")
+            player_play_game(True)
+            return True
+
 
 #welcome_msg
 print("---------------------------------")
