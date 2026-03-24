@@ -119,12 +119,12 @@ def dealer_ai():
         player_play_game(True)
         return True
 
-def story_text(text, delay=0.1):
+def story_text(text, delay = 0.0000003):
     for character in text:
         sys.stdout.write(character)
         sys.stdout.flush()
         time.sleep(delay)
-    print()
+    return ""
 
 def main_story():
     player_pathway_loop = 0
@@ -137,18 +137,25 @@ def main_story():
     input(story_text("A small kiwi exits its nest and waddles towards you.\n"))
     input(story_text("As it creeps closer to examine you, you stay as still as possible to not frighten the creature\n"))
     input(story_text("'HELLO THERE MATE' The somehow talkitive kiwi exclaims\n"))
-    input(story_text("'Well how'd you get round here, this is Greenstone Grove, no one been round here since the mythical ages'\n"))
+    print(story_text("'Well how'd you get round here, this is Greenstone Grove, no one been round here since the mythical ages'\n"))
     while player_pathway_loop == 0:
-        player_pathway = input("CHOOSE YOUR NEXT WORDS:\n'What's the mythical ages?'\nor\n'You can talk?'\n( 1 or 2 )\n")
-        if player_pathway == 1:
+        player_pathway = input("CHOOSE YOUR NEXT WORDS:\n'What's the mythical ages?'\nor\n'You can talk?'\n( 1 or 2 )\n").strip().upper()
+        if player_pathway == "1":
             input(story_text("'Well back in about 2020, there was a thing called lockdown.' \nThe talkitive kiwi says.\n"))
-            input(story_text("'While everyone was stuck in there houses us kiwis started to flourish and made our own land out the back of brooklyn called Greenstone Grove\n"))
+            input(story_text("'Whilst everyone was stuck in there houses us kiwis started to flourish and made our own land out the back of brooklyn called Greenstone Grove'\n"))
             input(story_text("'Well that's nice but how do i get back to the CBD? I'm kind of stuck out here without food or water.' You say \n"))
-            input(story_text("'The food issue is not a problem out here, we have tiles and tiles of food and supplies, you might just have to play for it.'\nThe kiwi says in a less welcoming tone.\n"))
+            input(story_text("'The food issue is not a problem out here, we have tiles and tiles of food and supplies, you might just have to play for it.'The kiwi says in a less welcoming tone.\n"))
             player_pathway_loop = 1
-        if player_pathway == 2:
-            input(story_text("'Back in the mythical times of 2020 as everyone was in their houses we made this little place out here called Greenstone Grove,\n Where we evolved past humans, but somehow kept the classic kiwi shape.'\n"))
-
+        if player_pathway == "2":
+            input(story_text("'Back in the mythical times of 2020 as everyone was in their houses we made this little place out here called Greenstone Grove,\n "))
+            input(story_text("Where we evolved past humans, but somehow kept the classic kiwi shape.'\n"))
+            input(story_text("'Well how do I get back to the CBD already, I'm kinda starving and haven't learn't how to forage.' You say\n"))
+            input(story_text("'To get back to the CBD I can't really help you with that, \nbut the food isn't an issue, we have tiles and tiles of food and supplies if needs be,\n 'You might just have to play for it.'The kiwi says in a less welcoming tone.\n"))
+            player_pathway_loop = 1
+        else:
+            print("Please enter 1 or 2")
+            return player_pathway
+    build_deck()
     player_play_game(True)
 
 #welcome_msg
@@ -159,8 +166,7 @@ time.sleep(3)
 print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 input("To play you must draw tiles one by one. But make sure you dont go over 21!\npress enter to continue")
 input("To win you must get less than 22 points and beat out the opponent\npress enter to continue")
-input("KEY:\nK , Q , J  = 10\nA = 1")
+input("KEY:\nK , Q , J  = 10\nA = 1\n")
 
 #main program
-build_deck()
-player_play_game(True)
+main_story()
