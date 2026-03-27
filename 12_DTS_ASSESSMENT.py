@@ -24,6 +24,7 @@ def check_hand():
     player_total = 0
     for i in player_hand[1]:
         player_total += NUMBERS[i]
+
     if player_total > 21:
         print("Unfortunate, you got over 21! try again\n")
         delete_deck()
@@ -35,6 +36,7 @@ def check_hand():
         print("Nice job! You got 21!\n")
         time.sleep(3)
         dealer_ai()
+        main_story()
 
 def build_deck():
     for x in SUITS:
@@ -84,6 +86,7 @@ def player_play_game(return_from_stand):
         player_unsure = player_play_game(False)
         if player_unsure != True:
             player_play_game(True)
+
 def dealer_check_hand():
     global dealer_total
     dealer_total = 0
@@ -103,13 +106,13 @@ def dealer_ai():
     print("Dealer hand:")
     for i in range(0,len(dealer_hand[0])):
         print(i+1,":",dealer_hand[1][i],"of",dealer_hand[0][i])
-    if dealer_total > 21:
-        print("Nice! The dealer went over 21 and you won!\n")
-        player_play_game(True)
-    elif dealer_total > player_total:
+    if dealer_total > player_total:
         print("Congrats! you got more than the dealer!\n You are onto the next section\n")
         player_play_game(False)
         return False
+    elif dealer_total > 21:
+        print("Nice! The dealer went over 21 and you won!\n")
+        player_play_game(True)
     if dealer_total == player_total:
         print("Wow! you got the same as the dealer!\n Unfortunately, you dont win or lose! play again.\n")
         player_play_game(True)
@@ -119,7 +122,7 @@ def dealer_ai():
         player_play_game(True)
         return True
 
-def story_text(text, delay = 0.0000003):
+def story_text(text, delay = 0.03):
     for character in text:
         sys.stdout.write(character)
         sys.stdout.flush()
@@ -146,7 +149,7 @@ def main_story():
             input(story_text("'Well that's nice but how do i get back to the CBD? I'm kind of stuck out here without food or water.' You say \n"))
             input(story_text("'The food issue is not a problem out here, we have tiles and tiles of food and supplies, you might just have to play for it.'The kiwi says in a less welcoming tone.\n"))
             player_pathway_loop = 1
-        if player_pathway == "2":
+        elif player_pathway == "2":
             input(story_text("'Back in the mythical times of 2020 as everyone was in their houses we made this little place out here called Greenstone Grove,\n "))
             input(story_text("Where we evolved past humans, but somehow kept the classic kiwi shape.'\n"))
             input(story_text("'Well how do I get back to the CBD already, I'm kinda starving and haven't learn't how to forage.' You say\n"))
