@@ -57,7 +57,7 @@ def player_deal():
     deck[0].pop(tile)
     deck[1].pop(tile)
     print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-    print("Player hand:")
+    print("Player's hand:")
     for i in range(0,len(player_hand[0])):
         print(i+1,":",player_hand[1][i],"of",player_hand[0][i])
 
@@ -103,22 +103,24 @@ def dealer_ai():
         deck[0].pop(tile)
         deck[1].pop(tile)
         dealer_check_hand()
-    print("Dealer hand:")
+    print("Kiwi's hand:")
     for i in range(0,len(dealer_hand[0])):
         print(i+1,":",dealer_hand[1][i],"of",dealer_hand[0][i])
-    if dealer_total > player_total:
-        print("Congrats! you got more than the dealer!\n You are onto the next section\n")
+    if player_total > dealer_total:
+        print("Congrats! you got more than the Kiwi!\n You are onto the next section\n")
         player_play_game(False)
         return False
     elif dealer_total > 21:
-        print("Nice! The dealer went over 21 and you won!\n")
+        print("Nice! The Kiwi went over 21 and you won!\n")
         player_play_game(True)
-    if dealer_total == player_total:
-        print("Wow! you got the same as the dealer!\n Unfortunately, you dont win or lose! play again.\n")
+    elif dealer_total == player_total:
+        print("Wow! you got the same as the Kiwi!\n Unfortunately, you dont win or lose! play again.\n")
         player_play_game(True)
         return True
     else:
-        print("Ah! Unfortunate, the dealer got more than you!\n play again\n")
+        print("Ah! Unfortunate, the Kiwi got more than you!\n play again\n")
+        delete_deck()
+        build_deck()
         player_play_game(True)
         return True
 
@@ -151,7 +153,7 @@ def main_story():
             player_pathway_loop = 1
         elif player_pathway == "2":
             input(story_text("'Back in the mythical times of 2020 as everyone was in their houses we made this little place out here called Greenstone Grove,\n "))
-            input(story_text("Where we evolved past humans, but somehow kept the classic kiwi shape.'\n"))
+            input(story_text("'Where we evolved past humans, but somehow kept the classic kiwi shape.'\n"))
             input(story_text("'Well how do I get back to the CBD already, I'm kinda starving and haven't learn't how to forage.' You say\n"))
             input(story_text("'To get back to the CBD I can't really help you with that, \nbut the food isn't an issue, we have tiles and tiles of food and supplies if needs be,\n 'You might just have to play for it.'The kiwi says in a less welcoming tone.\n"))
             player_pathway_loop = 1
@@ -160,6 +162,22 @@ def main_story():
             return player_pathway
     build_deck()
     player_play_game(True)
+
+def finished_story():
+    finsihed_story_loop = 0
+    input(story_text("'Well good game, you bested me, now to stick to my promise, you can keep all the food and supplies you played with.'\n"))
+    input(story_text("'Just please promise you will come visit every now and then, we would love to know what the CBD is up to now'\n"))
+    input(story_text("'Oh dont worry i'll come round every couple months and update you guys.' You say\n"))
+    input(story_text("'Oh well that would be wonderful, I wish you well on your adventures and good game sir'\n"))
+    while finsihed_story_loop == 0:
+        input(story_text("'Unless you want to stay here and learn more about how we live down here?' The kiwi says with \n"))
+        player_final_choice = input("CHOOSE YOUR PATH:\n1:Stay with the Kiwis\nor\n2:Go back to the CBD\n( 1 or 2 )\n").strip().upper()
+        if player_final_choice == "1":
+        elif player_final_choice == "2":
+        else:
+            print("Please enter 1 or 2")
+            return player_final_choice
+
 
 #welcome_msg
 print("---------------------------------")
@@ -172,4 +190,5 @@ input("To win you must get less than 22 points and beat out the opponent\npress 
 input("KEY:\nK , Q , J  = 10\nA = 1\n")
 
 #main program
-main_story()
+build_deck()
+player_play_game(True)
