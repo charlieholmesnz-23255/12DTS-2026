@@ -108,13 +108,14 @@ def dealer_ai():
         print(i+1,":",dealer_hand[1][i],"of",dealer_hand[0][i])
     if player_total > dealer_total:
         print("Congrats! you got more than the Kiwi!\n You are onto the next section\n")
-        player_play_game(False)
-        return False
+        finished_story()
     elif dealer_total > 21:
         print("Nice! The Kiwi went over 21 and you won!\n")
-        player_play_game(True)
+        finished_story()
     elif dealer_total == player_total:
         print("Wow! you got the same as the Kiwi!\n Unfortunately, you dont win or lose! play again.\n")
+        delete_deck()
+        build_deck()
         player_play_game(True)
         return True
     else:
@@ -169,15 +170,38 @@ def finished_story():
     input(story_text("'Just please promise you will come visit every now and then, we would love to know what the CBD is up to now'\n"))
     input(story_text("'Oh dont worry i'll come round every couple months and update you guys.' You say\n"))
     input(story_text("'Oh well that would be wonderful, I wish you well on your adventures and good game sir'\n"))
+    input(story_text("'Unless you want to stay here and learn more about how we live down here?' The kiwi says with \n"))
     while finsihed_story_loop == 0:
-        input(story_text("'Unless you want to stay here and learn more about how we live down here?' The kiwi says with \n"))
         player_final_choice = input("CHOOSE YOUR PATH:\n1:Stay with the Kiwis\nor\n2:Go back to the CBD\n( 1 or 2 )\n").strip().upper()
         if player_final_choice == "1":
+            input(story_text("'Actually I think I might stay.'\n"))
+            input(story_text("'Well that's great, I'll get your bed ready now.'\n"))
+            que_final()
         elif player_final_choice == "2":
+            input(story_text("'Well it was nice seeing you guys, I'll check back every now and then.'\n"))
+            input(story_text("'Be sure that visit is soon!'\n"))
+            que_final()
         else:
             print("Please enter 1 or 2")
             return player_final_choice
 
+def que_final():
+    time.sleep(2)
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    time.sleep(0.5)
+    print("""           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            ~                                                                  ~
+            ~     _____ _   _    _    _   _ _  ______    _____ ___  ____       ~
+            ~    |_   _| | | |  / \  | \ | | |/ / ___|  |  ___/ _ \|  _ \      ~
+            ~      | | | |_| | / _ \ |  \| | ' /\___ \  | |_ | | | | |_) |     ~
+            ~      | | |  _  |/ ___ \| |\  | . \ ___) | |  _|| |_| |  _ <      ~
+            ~     _|_| |_| |_/_/ _ \_\_|_\_|_|\_\____/__|_|   \___/|_| \_\     ~
+            ~    |  _ \| |      / \\ \ / /_ _| \ | |/ ___|                     ~
+            ~    | |_) | |     / _ \\ V / | ||  \| | |  _                      ~
+            ~    |  __/| |___ / ___ \| |  | || |\  | |_| |                     ~
+            ~    |_|   |_____/_/   \_\_| |___|_| \_|\____|                     ~
+            ~                                                                  ~
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~""")
 
 #welcome_msg
 print("---------------------------------")
@@ -190,5 +214,4 @@ input("To win you must get less than 22 points and beat out the opponent\npress 
 input("KEY:\nK , Q , J  = 10\nA = 1\n")
 
 #main program
-build_deck()
-player_play_game(True)
+que_final()
