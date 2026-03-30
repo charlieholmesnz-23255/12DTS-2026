@@ -76,6 +76,7 @@ def player_play_game(return_from_stand):
             are_you_sure = input("Are you sure? ( Y / N )\n").upper().strip()
             if are_you_sure == "Y":
                 dealer_ai()
+                player_play_game(False)
             elif are_you_sure == "N":
                 return False
             else:
@@ -160,36 +161,36 @@ def main_story():
             player_pathway_loop = 1
         else:
             print("Please enter 1 or 2")
-            return player_pathway
-    build_deck()
-    player_play_game(True)
+            continue
 
 def finished_story():
-    finsihed_story_loop = 0
+    finished_story_loop = 0
     input(story_text("'Well good game, you bested me, now to stick to my promise, you can keep all the food and supplies you played with.'\n"))
     input(story_text("'Just please promise you will come visit every now and then, we would love to know what the CBD is up to now'\n"))
     input(story_text("'Oh dont worry i'll come round every couple months and update you guys.' You say\n"))
     input(story_text("'Oh well that would be wonderful, I wish you well on your adventures and good game sir'\n"))
-    input(story_text("'Unless you want to stay here and learn more about how we live down here?' The kiwi says with \n"))
-    while finsihed_story_loop == 0:
+    input(story_text("'Unless you want to stay here and learn more about how we live down here?' The kiwi says with a hopeful tone.\n"))
+    while finished_story_loop == 0:
         player_final_choice = input("CHOOSE YOUR PATH:\n1:Stay with the Kiwis\nor\n2:Go back to the CBD\n( 1 or 2 )\n").strip().upper()
         if player_final_choice == "1":
             input(story_text("'Actually I think I might stay.'\n"))
             input(story_text("'Well that's great, I'll get your bed ready now.'\n"))
+            finished_story_loop = 1
             que_final()
         elif player_final_choice == "2":
             input(story_text("'Well it was nice seeing you guys, I'll check back every now and then.'\n"))
             input(story_text("'Be sure that visit is soon!'\n"))
+            finished_story_loop = 1
             que_final()
         else:
             print("Please enter 1 or 2")
-            return player_final_choice
+            continue
 
 def que_final():
     time.sleep(2)
     print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
     time.sleep(0.5)
-    print("""           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    print("""            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             ~                                                                  ~
             ~     _____ _   _    _    _   _ _  ______    _____ ___  ____       ~
             ~    |_   _| | | |  / \  | \ | | |/ / ___|  |  ___/ _ \|  _ \      ~
@@ -203,6 +204,7 @@ def que_final():
             ~                                                                  ~
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~""")
 
+
 #welcome_msg
 print("---------------------------------")
 print("_Welcome to tiles and turbulence_")
@@ -214,4 +216,18 @@ input("To win you must get less than 22 points and beat out the opponent\npress 
 input("KEY:\nK , Q , J  = 10\nA = 1\n")
 
 #main program
-que_final()
+def main_game():
+    while True:
+        main_story()
+        build_deck()
+        player_play_game(True)
+        restart_loop = 0
+        while restart_loop == 0:
+            restart = input("WOULD YOU LIKE TO RESTART?(y / n)\n").strip().lower()
+            if restart == "y":
+                main_game()
+            if restart == "n":
+                quit()
+            else:
+                continue
+main_game()
