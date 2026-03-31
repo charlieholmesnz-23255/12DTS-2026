@@ -24,14 +24,12 @@ def check_hand():
     player_total = 0
     for i in player_hand[1]:
         player_total += NUMBERS[i]
-
     if player_total > 21:
         print("Unfortunate, you got over 21! try again\n")
         delete_deck()
         build_deck()
         time.sleep(3)
         return ask_player
-
     if player_total == 21:
         print("Nice job! You got 21!\n")
         time.sleep(3)
@@ -61,7 +59,7 @@ def player_deal():
     for i in range(0,len(player_hand[0])):
         print(i+1,":",player_hand[1][i],"of",player_hand[0][i])
 
-def player_play_game(return_from_stand):
+def player_play_game():
     global ask_player
     ask_player = 0
     while not ask_player:
@@ -81,9 +79,9 @@ def player_play_game(return_from_stand):
                 return are_you_sure
         else:
             print("Please try again")
-        player_unsure = player_play_game(False)
+        player_unsure = player_play_game()
         if player_unsure != True:
-            player_play_game(True)
+            player_play_game()
 
 def dealer_check_hand():
     global dealer_total
@@ -114,13 +112,13 @@ def dealer_ai():
         print("Wow! you got the same as the Kiwi!\n Unfortunately, you dont win or lose! play again.\n")
         delete_deck()
         build_deck()
-        player_play_game(True)
+        player_play_game()
         return True
     else:
         print("Ah! Unfortunate, the Kiwi got more than you!\n play again\n")
         delete_deck()
         build_deck()
-        player_play_game(True)
+        player_play_game()
         return True
 
 def story_text(text, delay = 0.03):
@@ -140,12 +138,12 @@ def main_story():
     input(story_text("*but how do i get there...* you ask yourself\n"))
     input(story_text("A small kiwi exits its nest and waddles towards you.\n"))
     input(story_text("As it creeps closer to examine you, you stay as still as possible to not frighten the creature\n"))
-    input(story_text("'HELLO THERE MATE' The somehow talkitive kiwi exclaims\n"))
+    input(story_text("'HELLO THERE MATE' The somehow talkative kiwi exclaims\n"))
     print(story_text("'Well how'd you get round here, this is Greenstone Grove, no one been round here since the mythical ages'\n"))
     while player_pathway_loop == 0:
         player_pathway = input("CHOOSE YOUR NEXT WORDS:\n'What's the mythical ages?'\nor\n'You can talk?'\n( 1 or 2 )\n").strip().upper()
         if player_pathway == "1":
-            input(story_text("'Well back in about 2020, there was a thing called lockdown.' \nThe talkitive kiwi says.\n"))
+            input(story_text("'Well back in about 2020, there was a thing called lockdown.' \nThe talkative kiwi says.\n"))
             input(story_text("'Whilst everyone was stuck in there houses us kiwis started to flourish and made our own land out the back of brooklyn called Greenstone Grove'\n"))
             input(story_text("'Well that's nice but how do i get back to the CBD? I'm kind of stuck out here without food or water.' You say \n"))
             input(story_text("'The food issue is not a problem out here, we have tiles and tiles of food and supplies, you might just have to play for it.'The kiwi says in a less welcoming tone.\n"))
@@ -153,7 +151,7 @@ def main_story():
         elif player_pathway == "2":
             input(story_text("'Back in the mythical times of 2020 as everyone was in their houses we made this little place out here called Greenstone Grove,\n "))
             input(story_text("'Where we evolved past humans, but somehow kept the classic kiwi shape.'\n"))
-            input(story_text("'Well how do I get back to the CBD already, I'm kinda starving and haven't learn't how to forage.' You say\n"))
+            input(story_text("'Well how do I get back to the CBD already, I'm kinda starving and haven't learnt how to forage.' You say\n"))
             input(story_text("'To get back to the CBD I can't really help you with that, \nbut the food isn't an issue, we have tiles and tiles of food and supplies if needs be,\n 'You might just have to play for it.'The kiwi says in a less welcoming tone.\n"))
             player_pathway_loop = 1
         else:
@@ -187,7 +185,7 @@ def que_final():
     time.sleep(2)
     print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
     time.sleep(0.5)
-    print("""            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    print(r"""            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             ~                                                                  ~
             ~     _____ _   _    _    _   _ _  ______    _____ ___  ____       ~
             ~    |_   _| | | |  / \  | \ | | |/ / ___|  |  ___/ _ \|  _ \      ~
@@ -211,7 +209,6 @@ def que_final():
             restart_loop = 0
             continue
 
-
 #welcome_msg
 print("---------------------------------")
 print("_Welcome to tiles and turbulence_")
@@ -227,5 +224,5 @@ def main_game():
     main_story()
     delete_deck()
     build_deck()
-    player_play_game(True)
+    player_play_game()
 main_game()
