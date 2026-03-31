@@ -68,15 +68,12 @@ def player_play_game(return_from_stand):
         check_hand()
         ask_player = input("Do you want to hit or stand? ( H / S )\n").upper().strip()
         check_hand()
-        print(player_total)
         if ask_player == "H":
             player_deal()
-            player_play_game(True)
         elif ask_player == "S":
             are_you_sure = input("Are you sure? ( Y / N )\n").upper().strip()
             if are_you_sure == "Y":
                 dealer_ai()
-                player_play_game(False)
             elif are_you_sure == "N":
                 return False
             else:
@@ -197,12 +194,22 @@ def que_final():
             ~      | | | |_| | / _ \ |  \| | ' /\___ \  | |_ | | | | |_) |     ~
             ~      | | |  _  |/ ___ \| |\  | . \ ___) | |  _|| |_| |  _ <      ~
             ~     _|_| |_| |_/_/ _ \_\_|_\_|_|\_\____/__|_|   \___/|_| \_\     ~
-            ~    |  _ \| |      / \\ \ / /_ _| \ | |/ ___|                     ~
-            ~    | |_) | |     / _ \\ V / | ||  \| | |  _                      ~
+            ~    |  _ \| |      / \ \ \ / /_ _| \ | |/ ___|                     ~
+            ~    | |_) | |     / _ \ \ V / | ||  \| | |  _                      ~
             ~    |  __/| |___ / ___ \| |  | || |\  | |_| |                     ~
             ~    |_|   |_____/_/   \_\_| |___|_| \_|\____|                     ~
             ~                                                                  ~
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~""")
+    restart_loop = 1
+    while restart_loop == 1:
+        restart = input("WOULD YOU LIKE TO RESTART?(y / n)\n").strip().lower()
+        if restart == "y":
+            main_game()
+        if restart == "n":
+            quit()
+        else:
+            restart_loop = 0
+            continue
 
 
 #welcome_msg
@@ -217,17 +224,8 @@ input("KEY:\nK , Q , J  = 10\nA = 1\n")
 
 #main program
 def main_game():
-    while True:
-        build_deck()
-        player_play_game(True)
-        print("test")
-        restart_loop = 1
-        while restart_loop == 1:
-            restart = input("WOULD YOU LIKE TO RESTART?(y / n)\n").strip().lower()
-            if restart == "y":
-                main_game()
-            if restart == "n":
-                quit()
-            else:
-                continue
+    main_story()
+    delete_deck()
+    build_deck()
+    player_play_game(True)
 main_game()
