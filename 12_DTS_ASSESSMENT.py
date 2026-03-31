@@ -218,11 +218,11 @@ input("KEY:\nK , Q , J  = 10\nA = 1\n")
 #main program
 def main_game():
     while True:
-        main_story()
         build_deck()
         player_play_game(True)
-        restart_loop = 0
-        while restart_loop == 0:
+        print("test")
+        restart_loop = 1
+        while restart_loop == 1:
             restart = input("WOULD YOU LIKE TO RESTART?(y / n)\n").strip().lower()
             if restart == "y":
                 main_game()
