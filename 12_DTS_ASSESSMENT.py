@@ -64,12 +64,14 @@ def player_play_game():
     ask_player = 0
     while not ask_player:
         check_hand()
-        ask_player = input("Do you want to hit or stand? ( H / S )\n").upper().strip()
+        ask_player_string = input("Do you want to hit or stand? ( H / S )\n").upper().strip()
+        ask_player = ask_player_string[:1]
         check_hand()
         if ask_player == "H":
             player_deal()
         elif ask_player == "S":
-            are_you_sure = input("Are you sure? ( Y / N )\n").upper().strip()
+            are_you_sure_string = input("Are you sure? ( Y / N )\n").upper().strip()
+            are_you_sure = are_you_sure_string[:1]
             if are_you_sure == "Y":
                 dealer_ai()
             elif are_you_sure == "N":
@@ -166,7 +168,8 @@ def finished_story():
     input(story_text("'Oh well that would be wonderful, I wish you well on your adventures and good game sir'\n"))
     input(story_text("'Unless you want to stay here and learn more about how we live down here?' The kiwi says with a hopeful tone.\n"))
     while finished_story_loop == 0:
-        player_final_choice = input("CHOOSE YOUR PATH:\n1:Stay with the Kiwis\nor\n2:Go back to the CBD\n( 1 or 2 )\n").strip().upper()
+        player_final_choice_string = input("CHOOSE YOUR PATH:\n1:Stay with the Kiwis\nor\n2:Go back to the CBD\n( 1 or 2 )\n").strip().upper()
+        player_final_choice = player_final_choice_string[:1]
         if player_final_choice == "1":
             input(story_text("'Actually I think I might stay.'\n"))
             input(story_text("'Well that's great, I'll get your bed ready now.'\n"))
@@ -200,7 +203,8 @@ def que_final():
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~""")
     restart_loop = 1
     while restart_loop == 1:
-        restart = input("WOULD YOU LIKE TO RESTART?(y / n)\n").strip().lower()
+        restart_string = input("WOULD YOU LIKE TO RESTART?(y / n)\n").strip().lower()
+        restart = restart_string[:1]
         if restart == "y":
             main_game()
         if restart == "n":
@@ -221,7 +225,6 @@ input("KEY:\nK , Q , J  = 10\nA = 1\n")
 
 #main program
 def main_game():
-    main_story()
     delete_deck()
     build_deck()
     player_play_game()
